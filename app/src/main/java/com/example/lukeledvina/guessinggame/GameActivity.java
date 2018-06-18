@@ -30,12 +30,24 @@ public class GameActivity extends AppCompatActivity {
         guess = findViewById(R.id.guess_edittext);
 
         //this generates a random number between 1 and 100
-        generatedNumber = (int) Math.ceil(Math.random() * 100);
+
 
     //  Toast.makeText(this, Integer.toString(numberOfGuesses), Toast.LENGTH_SHORT).show();
 
         setListener();
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        generatedNumber = (int) Math.ceil(Math.random() * 100);
+
+        numberOfGuesses = 0;
+        clue.setVisibility(View.INVISIBLE);
+        guess.setText("");
 
     }
 
