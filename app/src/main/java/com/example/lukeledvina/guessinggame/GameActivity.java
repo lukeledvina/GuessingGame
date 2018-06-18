@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class GameActivity extends AppCompatActivity {
         //this generates a random number between 1 and 100
         generatedNumber = (int) Math.ceil(Math.random() * 100);
 
-//        Toast.makeText(this, Integer.toString(generatedNumber), Toast.LENGTH_SHORT).show();
+    //  Toast.makeText(this, Integer.toString(numberOfGuesses), Toast.LENGTH_SHORT).show();
 
         setListener();
 
@@ -53,14 +54,14 @@ public class GameActivity extends AppCompatActivity {
         try {
             int userGuess = Integer.parseInt(guess.getText().toString());
             if (userGuess > 100 || userGuess <= 0) {
-                clue.setText("Enter a number between 1 and 100");
+                clue.setText(R.string.enter_number_1_100);
                 clue.setVisibility(View.VISIBLE);
                 guess.setText("");
             } else {
                 checkGuess(userGuess);
             }
         } catch (NumberFormatException nfe) {
-            clue.setText("Enter a number");
+            clue.setText(R.string.enter_number);
             clue.setVisibility(View.VISIBLE);
         }
     }
@@ -82,15 +83,21 @@ public class GameActivity extends AppCompatActivity {
         } else if (userGuess < generatedNumber) {
 
             clue.setText(R.string.higher);
-            clue.setVisibility(View.INVISIBLE);
+            clue.setVisibility(View.VISIBLE);
             guess.setText("");
             numberOfGuesses++;
+            Toast.makeText(this, (getString(R.string.chances_left, (5 - numberOfGuesses))), Toast.LENGTH_SHORT).show();
 
 
         } else if (userGuess > generatedNumber) {
 
             clue.setText(R.string.lower);
-            
+            clue.setVisibility(View.VISIBLE);
+            guess.setText("");
+            numberOfGuesses++;
+            Toast.makeText(this, (getString(R.string.chances_left, (5 - numberOfGuesses))), Toast.LENGTH_SHORT).show();
+
+
         }
     }
 
